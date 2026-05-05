@@ -99,28 +99,9 @@ export const follows = pgTable(
   ],
 );
 
-export const comments = pgTable(
-  "comments",
-  {
-    id: uuid("id").primaryKey().defaultRandom(),
-    hitId: uuid("hit_id")
-      .notNull()
-      .references(() => hits.id, { onDelete: "cascade" }),
-    userId: uuid("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    body: text("body").notNull(),
-    createdAt: timestamp("created_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
-  },
-  (t) => [index("comments_hit_idx").on(t.hitId)],
-);
-
 export const usersRelations = relations(users, ({ many }) => ({
   hits: many(hits),
   likes: many(likes),
-  comments: many(comments),
   sessions: many(sessions),
   following: many(follows, { relationName: "follower" }),
   followers: many(follows, { relationName: "followee" }),
@@ -129,15 +110,9 @@ export const usersRelations = relations(users, ({ many }) => ({
 export const hitsRelations = relations(hits, ({ one, many }) => ({
   author: one(users, { fields: [hits.userId], references: [users.id] }),
   likes: many(likes),
-  comments: many(comments),
 }));
 
 export const likesRelations = relations(likes, ({ one }) => ({
   user: one(users, { fields: [likes.userId], references: [users.id] }),
   hit: one(hits, { fields: [likes.hitId], references: [hits.id] }),
-}));
-
-export const commentsRelations = relations(comments, ({ one }) => ({
-  hit: one(hits, { fields: [comments.hitId], references: [hits.id] }),
-  author: one(users, { fields: [comments.userId], references: [users.id] }),
 }));
