@@ -1,7 +1,9 @@
 {
   "name": "my-app",
   "scripts": {
-    "dev": "bun run --hot src/index.ts"
+    "dev": "bun run src/index.ts",
+    "db:migrate": "bunx drizzle-kit migrate",
+    "start": "bun run db:migrate && bun run src/index.ts"
   },
   "dependencies": {
     "@spotify/web-api-ts-sdk": "^1.2.0",
