@@ -1,5 +1,8 @@
 import { Hono } from "hono";
+import { requireAuth, type AuthContext } from "@/middleware/auth.middleware";
 
-const hitsRouter = new Hono().basePath("/hits");
+const hitsRoutes = new Hono<AuthContext>().basePath("/hits");
 
-export default hitsRouter;
+hitsRoutes.use("*", requireAuth);
+
+export default hitsRoutes;

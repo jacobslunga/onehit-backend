@@ -1,5 +1,5 @@
 import { Hono } from "hono";
 
-const feedRouter = new Hono().basePath("/feed");
+const feedRoutes = new Hono().basePath("/feed");
 
-export default feedRouter;
+export default feedRoutes;
