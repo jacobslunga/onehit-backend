@@ -6,6 +6,7 @@
     "start": "bun run db:migrate && bun run src/index.ts"
   },
   "dependencies": {
+    "@hono/zod-validator": "^0.7.6",
     "@spotify/web-api-ts-sdk": "^1.2.0",
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.16",
