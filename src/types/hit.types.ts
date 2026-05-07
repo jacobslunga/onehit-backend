@@ -1,9 +1,9 @@
-export interface SpotifyTrackMeta {
-  trackName: string;
-  artistName: string;
-  albumName: string;
-  albumImageUrl: string;
-  previewUrl: string | null;
+import type { SpotifyTrack } from "./spotify.types";
+
+export interface HitPoster {
+  spotifyUserId: string;
+  displayName: string;
+  avatarUrl: string | null;
 }
 
 export interface HitResponse {
@@ -12,5 +12,6 @@ export interface HitResponse {
   spotifyTrackId: string;
   caption: string | null;
   createdAt: string;
-  track: SpotifyTrackMeta;
+  track: SpotifyTrack;
+  poster: HitPoster;
 }
